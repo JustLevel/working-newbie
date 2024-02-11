@@ -147,5 +147,5 @@ for _, un in ipairs(units) do
     }
 
     rr:InvokeServer(unpack(args))
-    wait(1)
+    task.wait()
 end
