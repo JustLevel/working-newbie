@@ -136,6 +136,7 @@ local units = {
     "Ado",
     "Dark Flower",
     "Maky",
+    "Mirage",
 }
 
 local rr = game:GetService("ReplicatedStorage"):WaitForChild("Remote"):WaitForChild("TokenExchange")
