@@ -59,9 +59,12 @@ Library.MouseM = function(PositionX, PositionY)
 end
 
 Library.VirtualCenterMouseClick = function()
-    VirtualInputManager:SendMouseButtonEvent(Camera.ViewportSize.X/2, Camera.ViewportSize.Y/2, 0, true, game, 0)
+    Library.MouseM(Camera.ViewportSize.X / 2, Camera.ViewportSize.Y / 2)
     task.wait(0.1)
-    VirtualInputManager:SendMouseButtonEvent(Camera.ViewportSize.X/2, Camera.ViewportSize.Y/2, 0, false, game, 0)
+    VirtualInputManager:SendMouseButtonEvent(Camera.ViewportSize.X / 2, Camera.ViewportSize.Y / 2, 0, true, game, 0)
+    task.wait(0.1)
+    VirtualInputManager:SendMouseButtonEvent(Camera.ViewportSize.X / 2, Camera.ViewportSize.Y / 2, 0, false, game, 0)
 end
+
 
 return Library
