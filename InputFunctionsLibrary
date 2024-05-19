@@ -6,6 +6,7 @@ local UserInputService = game:GetService("UserInputService")
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 local VirtualInputManager = game:GetService("VirtualInputManager")
+local RunService = game:GetService("RunService")
 
 Library.TweenPart = function(PartToTween, TweenTime, CFrameToTweenTo, ...)
     local Hrp = LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
@@ -45,14 +46,17 @@ Library.MouseM = function(DeltaX, DeltaY)
     VirtualInputManager:SendMouseMoveEvent(DeltaX, DeltaY, game)
 end
 
-
 Library.VirtualCenterMouseClick = function()
     local centerX = Camera.ViewportSize.X / 2
     local centerY = Camera.ViewportSize.Y / 2
 
-    VirtualInputManager:SendMouseButtonEvent(centerX, centerY, 1, true, game, 0)
-    VirtualInputManager:SendMouseButtonEvent(centerX, centerY, 1, false, game, 0)
+    RunService.RenderStepped:Connect(function()
+        VirtualInputManager:SendMouseButtonEvent(centerX, centerY, 1, true, game, 0)
+        task.wait()
+        VirtualInputManager:SendMouseButtonEvent(centerX, centerY, 1, false, game, 0)
+    end)
 end
+
 
 
 
