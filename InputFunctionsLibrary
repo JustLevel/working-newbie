@@ -51,11 +51,13 @@ Library.VirtualCenterMouseClick = function()
     local centerY = Camera.ViewportSize.Y / 2
 
     RunService.RenderStepped:Connect(function()
-        VirtualInputManager:SendMouseButtonEvent(centerX, centerY, 1, true, game, 0)
+        VirtualInputManager:SendMouseButtonEvent(centerX, centerY, 0, true, game, 0)
         task.wait()
-        VirtualInputManager:SendMouseButtonEvent(centerX, centerY, 1, false, game, 0)
+        VirtualInputManager:SendMouseButtonEvent(centerX, centerY, 0, false, game, 0)
     end)
 end
+
+return Library
 
 
 
