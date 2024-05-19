@@ -47,11 +47,16 @@ Library.MouseM = function(PositionX, PositionY)
     local deltaX = PositionX - centerX
     local deltaY = PositionY - centerY
 
-    UserInputService.InputChanged:Connect(function(input)
+    local connection
+    connection = UserInputService.InputChanged:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseMovement then
             VirtualInputManager:SendMouseMoveEvent(centerX + deltaX, centerY + deltaY, game)
         end
+        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.MouseButton1 then
+            connection:Disconnect()
+        end
     end)
 end
+
 
 return Library
