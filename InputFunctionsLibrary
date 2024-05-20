@@ -58,10 +58,3 @@ Library.VirtualCenterMouseClick = function()
 end
 
 return Library
-
-
-
-
-
-
-return Library
