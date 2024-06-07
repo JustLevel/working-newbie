@@ -25,8 +25,8 @@ local RayfieldLibrary = {
 			TextFont = "Default", -- Default will use the various font faces used across Rayfield
 			TextColor = Color3.fromRGB(240, 240, 240),
 
-			Background = Color3.fromRGB(101, 67, 33),
-			Topbar = Color3.fromRGB(139, 69, 19),
+			Background = Color3.fromRGB(105, 64, 40),
+			Topbar = Color3.fromRGB(124, 92, 70),
 			Shadow = Color3.fromRGB(20, 20, 20),
 
 			NotificationBackground = Color3.fromRGB(20, 20, 20),
