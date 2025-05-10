@@ -3791,6 +3791,7 @@ function MacLib:Window(Settings)
 	local title = Instance.new("TextLabel")
 	title.Name = "Title"
 	title.FontFace = Font.new("rbxassetid://12187365364",Enum.FontWeight.SemiBold,Enum.FontStyle.Normal)
+	title.RichText = true
 	title.Text = tostring(Settings.Title)
 	title.TextColor3 = Color3.fromRGB(255, 255, 255)
 	title.TextSize = 20
