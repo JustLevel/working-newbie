@@ -3896,7 +3896,7 @@ function MacLib:Window(Settings)
     timeFrame.LayoutOrder = 1
     timeFrame.Size = UDim2.new(1, -42, 0, 32)
 
-    repeat task.wait(0.05); print("waiting") until (getgenv().LRM_SecondsLeft ~= nil) or (LRM_SecondsLeft ~= nil)
+    repeat task.wait(0.05); print(LRM_SecondsLeft, "test!"); print(getgenv().LRM_SecondsLeft, "test2") until (getgenv().LRM_SecondsLeft ~= nil) or (LRM_SecondsLeft ~= nil)
 
     local totalTime = getgenv().LRM_SecondsLeft or LRM_SecondsLeft
     local ExpiryTimeKey = string.format("%dd %dh %dm", 
@@ -5439,6 +5439,6 @@ function MacLib:Demo()
 	tabs.Main:Select()
 end
 
-print("monkery maclib loaded")
+print(" maclib loaded")
 
 return MacLib;
