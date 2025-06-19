@@ -3895,11 +3895,8 @@ function MacLib:Window(Settings)
     timeFrame.BorderSizePixel = 0
     timeFrame.LayoutOrder = 1
     timeFrame.Size = UDim2.new(1, -42, 0, 32)
-    print(getgenv().LRM_SecondsLeft, "test42310942104!")
-
-    repeat task.wait(0.05); print(LRM_SecondsLeft, "test!"); print(getgenv().LRM_SecondsLeft, "test3!") until LRM_SecondsLeft ~= nil
     
-    local totalTime = LRM_SecondsLeft
+    local totalTime = getgenv().LRM_SecondsLeft
     local ExpiryTimeKey = string.format("%dd %dh %dm", 
         totalTime // 86400, -- days
         (totalTime % 86400) // 3600, -- hours
@@ -5440,6 +5437,6 @@ function MacLib:Demo()
 	tabs.Main:Select()
 end
 
-print(" loaded")
+print(" maclib loaded")
 
 return MacLib;
