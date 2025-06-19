@@ -5450,6 +5450,4 @@ function MacLib:Demo()
 	tabs.Main:Select()
 end
 
-print("working!");
-
 return MacLib;
