@@ -3896,7 +3896,11 @@ function MacLib:Window(Settings)
     timeFrame.LayoutOrder = 1
     timeFrame.Size = UDim2.new(1, -42, 0, 32)
 
-    local totalTime = LRM_SecondsLeft or 0
+    function MacLib:UpdateExpiryDate(SecondsLeft)
+        return SecondsLeft
+    end
+
+    local totalTime = MacLib:UpdateExpiryDate()
     local ExpiryTimeKey = string.format("%dd %dh %dm", 
         totalTime // 86400, -- days
         (totalTime % 86400) // 3600, -- hours
@@ -3926,7 +3930,7 @@ function MacLib:Window(Settings)
     timeLabel.Parent = timeFrame
 
     RunService.RenderStepped:Connect(function()
-        local totalTime = LRM_SecondsLeft or 0
+        local totalTime = MacLib:UpdateExpiryDate()
         local ExpiryTimeKey = string.format("%dd %dh %dm", 
             totalTime // 86400, -- days
             (totalTime % 86400) // 3600, -- hours
@@ -5437,5 +5441,7 @@ function MacLib:Demo()
 
 	tabs.Main:Select()
 end
-print("executed!");
+
+print("MacLib loaded successfully!")
+
 return MacLib;
