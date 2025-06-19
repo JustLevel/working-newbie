@@ -5437,6 +5437,6 @@ function MacLib:Demo()
 	tabs.Main:Select()
 end
 
-print(" maclib loaded")
+print("21 maclib loaded")
 
 return MacLib;
