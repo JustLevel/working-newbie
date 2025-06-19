@@ -3910,9 +3910,9 @@ function MacLib:Window(Settings)
         Enum.FontWeight.SemiBold,
         Enum.FontStyle.Normal
     )
-    timeLabel.Text = "Key Left Time: \n" .. ExpiryTimeKey
+    timeLabel.Text = "🔑 Key Left Time: \n" .. ExpiryTimeKey
     timeLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-    timeLabel.TextSize = 19
+    timeLabel.TextSize = 12
     timeLabel.TextTransparency = 0.1
     timeLabel.TextTruncate = Enum.TextTruncate.SplitWord
     timeLabel.TextXAlignment = Enum.TextXAlignment.Left
@@ -5436,7 +5436,5 @@ function MacLib:Demo()
 
 	tabs.Main:Select()
 end
-
-print("21 maclib loaded")
 
 return MacLib;
