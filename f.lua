@@ -3929,7 +3929,11 @@ function MacLib:Window(Settings)
     task.spawn(function()
         while true do
             local totalTime = getgenv().LRM_SecondsLeft
-            if type(totalTime) ~= "number" then return end
+            
+            if type(totalTime) ~= "number" then
+                task.wait(1)
+                continue
+            end
 
             local ExpiryTimeKey = string.format("%dd %dh %dm %ds", 
                 totalTime // 86400, -- days
@@ -5446,6 +5450,6 @@ function MacLib:Demo()
 	tabs.Main:Select()
 end
 
-print("worked");
+print("working!");
 
 return MacLib;
