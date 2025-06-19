@@ -3896,7 +3896,7 @@ function MacLib:Window(Settings)
     timeFrame.LayoutOrder = 1
     timeFrame.Size = UDim2.new(1, -42, 0, 32)
     
-    local totalTime = getgenv().LRM_SecondsLeft
+    local totalTime = getgenv().LRM_SecondsLeft or 0
     local ExpiryTimeKey = string.format("%dd %dh %dm %ds", 
         totalTime // 86400, -- days
         (totalTime % 86400) // 3600, -- hours
@@ -3928,7 +3928,7 @@ function MacLib:Window(Settings)
 
     task.spawn(function()
         while true do
-            local totalTime = getgenv().LRM_SecondsLeft
+            local totalTime = getgenv().LRM_SecondsLeft or 0
             
             if type(totalTime) ~= "number" then
                 task.wait(1)
