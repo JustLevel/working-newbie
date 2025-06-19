@@ -3856,23 +3856,6 @@ function MacLib:Window(Settings)
 	sidebarGroupUIPadding.PaddingTop = UDim.new(0, 15)
 	sidebarGroupUIPadding.Parent = sidebarGroup
 
-    local assets = {
-	interFont = "rbxassetid://12187365364",
-	userInfoBlurred = "rbxassetid://18824089198",
-	toggleBackground = "rbxassetid://18772190202",
-	togglerHead = "rbxassetid://18772309008",
-	buttonImage = "rbxassetid://10709791437",
-	searchIcon = "rbxassetid://86737463322606",
-	colorWheel = "rbxassetid://2849458409",
-	colorTarget = "rbxassetid://73265255323268",
-	grid = "rbxassetid://121484455191370",
-	globe = "rbxassetid://108952102602834",
-	transform = "rbxassetid://90336395745819",
-	dropdown = "rbxassetid://18865373378",
-	sliderbar = "rbxassetid://18772615246",
-	sliderhead = "rbxassetid://18772834246",
-    }
-
     local userInfo = Instance.new("Frame")
     userInfo.Name = "UserInfo"
     userInfo.AnchorPoint = Vector2.new(0, 1)
@@ -3923,7 +3906,7 @@ function MacLib:Window(Settings)
     local timeLabel = Instance.new("TextLabel")
     timeLabel.Name = "TimeLabel"
     timeLabel.FontFace = Font.new(
-        "rbxasset://fonts/families/Inter.json",
+        "rbxassetid://12187365364",
         Enum.FontWeight.SemiBold,
         Enum.FontStyle.Normal
     )
