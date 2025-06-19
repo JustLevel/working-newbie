@@ -3926,15 +3926,21 @@ function MacLib:Window(Settings)
     timeLabel.Size = UDim2.fromScale(1, 0)
     timeLabel.Parent = timeFrame
 
-    RunService.RenderStepped:Connect(function()
-        totalTime = getgenv().LRM_SecondsLeft
-        ExpiryTimeKey = string.format("%dd %dh %dm %ds", 
-            totalTime // 86400, -- days
-            (totalTime % 86400) // 3600, -- hours
-            (totalTime % 3600) // 60, -- minutes
-            (totalTime % 60) -- seconds
-        )
-        timeLabel.Text = "🔑 Key Left Time: \n" .. ExpiryTimeKey
+    task.spawn(function()
+        while true do
+            local totalTime = getgenv().LRM_SecondsLeft
+            if type(totalTime) ~= "number" then return end
+
+            local ExpiryTimeKey = string.format("%dd %dh %dm %ds", 
+                totalTime // 86400, -- days
+                (totalTime % 86400) // 3600, -- hours
+                (totalTime % 3600) // 60, -- minutes
+                (totalTime % 60) -- seconds
+            )
+
+            timeLabel.Text = "🔑 Key Left Time: \n" .. ExpiryTimeKey
+            task.wait(1)
+        end
     end)
 
     local timeFrameUIPadding = Instance.new("UIPadding")
@@ -5439,5 +5445,7 @@ function MacLib:Demo()
 
 	tabs.Main:Select()
 end
+
+print("worked");
 
 return MacLib;
