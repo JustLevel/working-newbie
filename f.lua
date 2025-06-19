@@ -3896,9 +3896,9 @@ function MacLib:Window(Settings)
     timeFrame.LayoutOrder = 1
     timeFrame.Size = UDim2.new(1, -42, 0, 32)
 
-    repeat task.wait(0.05); print(LRM_SecondsLeft, "test!"); print(getgenv().LRM_SecondsLeft, "test2") until (getgenv().LRM_SecondsLeft ~= nil) or (LRM_SecondsLeft ~= nil)
+    repeat task.wait(0.05); print(LRM_SecondsLeft, "test!") until LRM_SecondsLeft ~= nil
 
-    local totalTime = getgenv().LRM_SecondsLeft or LRM_SecondsLeft
+    local totalTime = LRM_SecondsLeft
     local ExpiryTimeKey = string.format("%dd %dh %dm", 
         totalTime // 86400, -- days
         (totalTime % 86400) // 3600, -- hours
