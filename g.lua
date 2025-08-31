@@ -1800,11 +1800,13 @@ do
 		Settings = Defaults({
 			Name = "Test Image",
 			Image = "rbxassetid://0",
+			Default = false,
 			Callback = function() end
 		}, Settings)
 
 		local ImageFunctions = {}
 		local section = self.addons or self.section
+		local isSelected = Settings.Default or false
 
 		local imageFrame = Instance.new("Frame")
 		imageFrame.Name = "Image"
@@ -1870,17 +1872,32 @@ do
 
 		local function ChangeState(State)
 			if State == "Idle" then
-				imageName.TextTransparency = 0.5
+				if isSelected then
+					imageName.TextTransparency = 0.2
+					imageName.TextColor3 = Color3.fromRGB(0, 255, 0)
+				else
+					imageName.TextTransparency = 0.5
+					imageName.TextColor3 = Color3.fromRGB(255, 255, 255)
+				end
 				imageDisplay.ImageTransparency = 0
 			elseif State == "Hover" then
-				imageName.TextTransparency = 0.3
+				if isSelected then
+					imageName.TextTransparency = 0.1
+					imageName.TextColor3 = Color3.fromRGB(0, 255, 0)
+				else
+					imageName.TextTransparency = 0.3
+					imageName.TextColor3 = Color3.fromRGB(255, 255, 255)
+				end
 				imageDisplay.ImageTransparency = 0
 			end
 		end
 
 		local function Callback()
+			isSelected = not isSelected
+			ChangeState("Idle")
+			
 			if Settings.Callback then
-				task.spawn(Settings.Callback)
+				task.spawn(Settings.Callback, isSelected)
 			end
 		end
 
@@ -1892,6 +1909,10 @@ do
 		end)
 
 		imageButton.MouseButton1Click:Connect(Callback)
+		
+		if isSelected then
+			ChangeState("Idle")
+		end
 
 		function ImageFunctions:UpdateName(Name)
 			imageName.Text = tostring(Name)
@@ -1903,6 +1924,15 @@ do
 		
 		function ImageFunctions:SetVisibility(State)
 			imageFrame.Visible = State
+		end
+		
+		function ImageFunctions:SetSelected(State)
+			isSelected = State
+			ChangeState("Idle")
+		end
+		
+		function ImageFunctions:GetSelected()
+			return isSelected
 		end
 
 		return ImageFunctions
