@@ -1796,6 +1796,148 @@ do
 		return SubLabelFunctions
 	end
 
+	function Funcs:Image(Settings)
+		Settings = Defaults({
+			Name = "Test Image",
+			Image = "rbxassetid://0",
+			Default = false,
+			Callback = function() end
+		}, Settings)
+
+		local ImageFunctions = {}
+		local section = self.addons or self.section
+		local isSelected = Settings.Default or false
+
+		local imageFrame = Instance.new("Frame")
+		imageFrame.Name = "Image"
+		imageFrame.AutomaticSize = Enum.AutomaticSize.Y
+		imageFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+		imageFrame.BackgroundTransparency = 1
+		imageFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		imageFrame.BorderSizePixel = 0
+		imageFrame.Size = self.addons and UDim2.new(0, 250, 0, 38) or UDim2.new(1, 0, 0, 38)
+		imageFrame.Parent = section
+
+		local imageName = Instance.new("TextLabel")
+		imageName.Name = "ImageName"
+		imageName.FontFace = Font.new("rbxassetid://12187365364",Enum.FontWeight.Medium,Enum.FontStyle.Normal)
+		imageName.Text = tostring(Settings.Name)
+		imageName.TextColor3 = Color3.fromRGB(255, 255, 255)
+		imageName.TextSize = 13
+		imageName.TextTransparency = 0.5
+		imageName.TextTruncate = Enum.TextTruncate.AtEnd
+		imageName.TextXAlignment = Enum.TextXAlignment.Left
+		imageName.TextYAlignment = Enum.TextYAlignment.Top
+		imageName.AnchorPoint = Vector2.new(0, 0.5)
+		imageName.AutomaticSize = Enum.AutomaticSize.Y
+		imageName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		imageName.BackgroundTransparency = 1
+		imageName.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		imageName.BorderSizePixel = 0
+		imageName.Position = UDim2.fromScale(0, 0.5)
+		imageName.Size = UDim2.new(1, -50, 0, 0)
+		imageName.Parent = imageFrame
+
+		local imageDisplay = Instance.new("ImageLabel")
+		imageDisplay.Name = "ImageDisplay"
+		imageDisplay.Image = Settings.Image
+		imageDisplay.ImageTransparency = 0
+		imageDisplay.AnchorPoint = Vector2.new(1, 0.5)
+		imageDisplay.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		imageDisplay.BackgroundTransparency = 1
+		imageDisplay.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		imageDisplay.BorderSizePixel = 0
+		imageDisplay.Position = UDim2.fromScale(1, 0.5)
+		imageDisplay.Size = UDim2.fromOffset(30, 30)
+		imageDisplay.Parent = imageFrame
+
+		local imageButton = Instance.new("TextButton")
+		imageButton.Name = "ImageButton"
+		imageButton.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json")
+		imageButton.Text = ""
+		imageButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+		imageButton.TextSize = 14
+		imageButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		imageButton.BackgroundTransparency = 1
+		imageButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		imageButton.BorderSizePixel = 0
+		imageButton.Size = UDim2.fromScale(1, 1)
+		imageButton.Parent = imageFrame
+
+		local TweenSettings = {
+			DefaultTransparency = 0.5,
+			HoverTransparency = 0.3,
+			EasingStyle = Enum.EasingStyle.Sine
+		}
+
+		local function ChangeState(State)
+			if State == "Idle" then
+				if isSelected then
+					imageName.TextTransparency = 0.2
+					imageName.TextColor3 = Color3.fromRGB(0, 255, 0)
+				else
+					imageName.TextTransparency = 0.5
+					imageName.TextColor3 = Color3.fromRGB(255, 255, 255)
+				end
+				imageDisplay.ImageTransparency = 0
+			elseif State == "Hover" then
+				if isSelected then
+					imageName.TextTransparency = 0.1
+					imageName.TextColor3 = Color3.fromRGB(0, 255, 0)
+				else
+					imageName.TextTransparency = 0.3
+					imageName.TextColor3 = Color3.fromRGB(255, 255, 255)
+				end
+				imageDisplay.ImageTransparency = 0
+			end
+		end
+
+		local function Callback()
+			isSelected = not isSelected
+			ChangeState("Idle")
+			
+			if Settings.Callback then
+				task.spawn(Settings.Callback, isSelected)
+			end
+		end
+
+		imageButton.MouseEnter:Connect(function()
+			ChangeState("Hover")
+		end)
+		imageButton.MouseLeave:Connect(function()
+			ChangeState("Idle")
+		end)
+
+		imageButton.MouseButton1Click:Connect(Callback)
+		
+		if isSelected then
+			ChangeState("Idle")
+		end
+
+		function ImageFunctions:UpdateName(Name)
+			imageName.Text = tostring(Name)
+		end
+		
+		function ImageFunctions:UpdateImage(ImageId)
+			imageDisplay.Image = ImageId
+		end
+		
+		function ImageFunctions:SetVisibility(State)
+			imageFrame.Visible = State
+		end
+		
+		function ImageFunctions:SetSelected(State)
+			isSelected = State
+			ChangeState("Idle")
+		end
+		
+		function ImageFunctions:GetSelected()
+			return isSelected
+		end
+
+		return ImageFunctions
+	end
+
 	function Funcs:Colorpicker(Settings)
 		Settings = Defaults({
 
